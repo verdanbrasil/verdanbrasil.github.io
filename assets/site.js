@@ -358,8 +358,10 @@ function abrirDialogo(html, classe = ""){
 function fecharDialogo(){ const d = $("#dialog"); if(d.open) d.close(); }
 
 // ===== Componentes =====
+// Caminho clicável, como a barra de endereço de pastas: cada parte leva até ela.
 function crumb(partes){
-  return `<nav class="wrap crumb" aria-label="Caminho"><a href="/">Início</a> / ${partes}</nav>`;
+  const pedacos = ['<a href="/">Início</a>', ...partes.split(" / ")];
+  return `<nav class="wrap crumb" aria-label="Caminho"><ol>${pedacos.map((p, i) => `<li>${i === pedacos.length - 1 && !p.startsWith("<a") ? `<span aria-current="page">${p}</span>` : p}</li>`).join("")}</ol></nav>`;
 }
 function rotuloCodigos(p){
   return p.variacoes.length > 1 ? `${p.variacoes.length} opções` : `Cód. ${esc(p.variacoes[0].codigo)}`;

@@ -90,3 +90,12 @@ body.sem-zap .zap{display:none}
 
 /* Foco programático no conteúdo (troca de página) sem moldura em volta da página */
 #main:focus{outline:none}
+
+/* Caminho (Início › Produtos › Categoria › Produto): cada parte é clicável, como pastas */
+.crumb{padding:16px 0}.crumb ol{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;align-items:center;font-size:13px}
+.crumb li{display:flex;align-items:center}.crumb li+li:before{content:'›';color:#9aa79d;padding:0 4px;font-size:15px}
+.crumb a{padding:7px 10px;border-radius:4px;color:var(--green);font-weight:600;transition:background .15s}
+.crumb a:hover{background:#e6ece5;text-decoration:underline;text-underline-offset:3px}
+.crumb [aria-current]{padding:7px 10px;color:var(--ink);font-weight:700}
+.crumb li:first-child a{padding-left:0}
+@media(max-width:767px){.crumb ol{font-size:12px}.crumb a,.crumb [aria-current]{padding:8px 7px}}
