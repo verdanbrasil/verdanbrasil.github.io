@@ -82,7 +82,9 @@ function aplicarEmpresa(d){
   if(txt("SiteHorario")) C.horario = txt("SiteHorario");
   const insta = txt("SiteInstagram");
   if(insta) C.instagram = /^https?:\/\//i.test(insta) ? insta : `https://instagram.com/${insta.replace(/^@/, "").replace(/^(www\.)?instagram\.com\//i, "")}`;
-  if(txt("EmpresaCNPJ")) C.cnpj = txt("EmpresaCNPJ");
+  // CNPJ só aparece se for um número válido (o programa pode estar com um provisório, ex.: só zeros).
+  const cnpj = txt("EmpresaCNPJ").replace(/\D/g, "");
+  if(cnpj.length === 14 && !/^(\d)\1+$/.test(cnpj)) C.cnpj = cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})$/, "$1.$2.$3/$4-$5");
   const cidade = [txt("EmpresaCidade"), txt("EmpresaUF")].filter(Boolean).join(" - ");
   const rua = [txt("EmpresaEndereco"), txt("EmpresaBairro")].filter(Boolean).join(", ");
   if(cidade) C.endereco = [rua, cidade].filter(Boolean).join(", ") + (txt("EmpresaCEP") ? `, CEP ${txt("EmpresaCEP")}` : "");
