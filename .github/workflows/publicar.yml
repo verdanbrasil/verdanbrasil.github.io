@@ -1,0 +1,32 @@
+# Atualiza as páginas dos produtos (título, foto e descrição para o Google e para a prévia do link)
+# a cada 3 horas e quando alguém pede em Actions › Publicar site › Run workflow.
+# O GitHub Pages publica o que estiver no main. Produto novo funciona no site mesmo antes disso.
+name: Publicar site
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "17 */3 * * *"
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: publicar
+  cancel-in-progress: false
+jobs:
+  paginas:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: node ferramentas/gerar-paginas.mjs
+      - name: Gravar se mudou
+        run: |
+          git add -A produtos produtos.html a-verdan.html como-comprar.html contato.html privacidade.html solicitacao.html links.html 404.html sitemap.xml robots.txt
+          if git diff --cached --quiet; then echo "Nada mudou."; exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Atualiza páginas dos produtos"
+          git push
