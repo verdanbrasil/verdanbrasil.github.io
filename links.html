@@ -19,6 +19,15 @@
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 .destination[hidden]{display:none!important}.mini-links.um{grid-template-columns:1fr}
 
+
+/* botões com a mesma letra e o mesmo tamanho (o WhatsApp continua em destaque pela cor) */
+.destination strong,.mini-links .destination strong{font-size:14px!important;font-weight:800!important;line-height:1.35!important;letter-spacing:-.015em!important}
+.destination small,.mini-links .destination small{font-size:11px!important;font-weight:400!important;line-height:1.5!important;margin-top:3px!important}
+.destination .symbol,.mini-links .destination .symbol{width:22px!important;height:22px!important}
+.destination .arrow,.mini-links .destination .arrow{width:15px!important;height:15px!important}
+.destination,.mini-links .destination{padding:15px 18px!important;gap:15px!important;min-height:74px!important}
+@media(max-width:720px){.destination strong,.mini-links .destination strong{font-size:13px!important}.destination small,.mini-links .destination small{font-size:10.5px!important}}
+.mini-links{grid-template-columns:1fr!important}
 </style></head>
 <body><a href="#links" class="skip">Pular para os links</a>
 <div class="background" aria-hidden="true"><picture><source type="image/webp" srcset="/assets/img/estrada-800.webp 800w, /assets/img/estrada-1280.webp 1280w, /assets/img/estrada-1672.webp 1672w" sizes="(max-width:720px) 154vw, 100vw"><img src="/assets/img/estrada-1672.jpg" srcset="/assets/img/estrada-800.jpg 800w, /assets/img/estrada-1280.jpg 1280w, /assets/img/estrada-1672.jpg 1672w" sizes="(max-width:720px) 154vw, 100vw" alt="" width="1672" height="941" fetchpriority="high"></picture></div><div class="shade" aria-hidden="true"></div>
