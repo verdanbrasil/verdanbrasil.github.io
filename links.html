@@ -5,8 +5,8 @@
 <title>VERDAN | Encontre seu caminho</title>
 <meta name="description" content="Conheça a VERDAN e escolha como falar com nossa equipe. Acessórios de qualidade para quem move o Brasil.">
 <meta name="robots" content="noindex">
-<link rel="canonical" href="https://verdanbrasil.github.io/links">
-<meta property="og:type" content="website"><meta property="og:title" content="VERDAN | Encontre seu caminho"><meta property="og:description" content="Acessórios de qualidade para quem move o Brasil. Fale com nossa equipe."><meta property="og:url" content="https://verdanbrasil.github.io/links"><meta property="og:image" content="https://verdanbrasil.github.io/assets/img/estrada-1280.jpg">
+<link rel="canonical" href="https://verdanbrasil.com.br/links">
+<meta property="og:type" content="website"><meta property="og:title" content="VERDAN | Encontre seu caminho"><meta property="og:description" content="Acessórios de qualidade para quem move o Brasil. Fale com nossa equipe."><meta property="og:url" content="https://verdanbrasil.com.br/links"><meta property="og:image" content="https://verdanbrasil.com.br/assets/img/estrada-1280.jpg">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="256x256" href="/assets/img/favicon.png"><link rel="apple-touch-icon" sizes="180x180" href="/assets/img/apple-touch-icon.png">
 <link rel="preload" href="/assets/fontes/manrope-800.woff2" as="font" type="font/woff2" crossorigin>
 <style>
@@ -48,8 +48,9 @@
   if(z.length === 10 || z.length === 11) zap = "55" + z; else if(/^55\d{10,11}$/.test(z)) zap = z;
   const wa = document.getElementById("whatsapp");
   if(/^\d{12,13}$/.test(zap)) wa.href = "https://wa.me/" + zap + "?text=" + encodeURIComponent(MSG);
-  let email = C.email || "";
-  if(/^[^@\s<>]+@[^@\s<>]+\.[^@\s<>]+$/.test(txt("EmpresaEmail"))) email = txt("EmpresaEmail");
+  // Bio: "Envie sua dúvida" vai para o atendimento; sem ele, o e-mail principal do programa.
+  let email = (C.emails && C.emails.atendimento) || C.email || "";
+  if(!(C.emails && C.emails.atendimento) && /^[^@\s<>]+@[^@\s<>]+\.[^@\s<>]+$/.test(txt("EmpresaEmail"))) email = txt("EmpresaEmail");
   const em = document.getElementById("email");
   em.hidden = !email;
   if(email) em.href = "mailto:" + email + "?subject=" + encodeURIComponent("Contato pelo Instagram — VERDAN");

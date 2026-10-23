@@ -14,7 +14,7 @@ Site estático: abre direto no navegador, sem servidor. Nunca mostra preço.
 `#inicio`, `#produtos` (busca, categorias, ordem e página ficam no link), `#produto/<nome>`, `#solicitacao`, `#empresa`, `#como-comprar`, `#contato`, `#privacidade`, `#links` (para a bio do Instagram). Qualquer outro endereço mostra "Página não encontrada".
 
 ## Bio do Instagram
-`links.html` (endereço https://verdanbrasil.github.io/links) é a página para colocar na bio. WhatsApp, e-mail e Instagram vêm do programa (Cadastros › Empresa); o botão do Instagram só aparece quando o campo Instagram estiver preenchido lá.
+`links.html` (endereço https://verdanbrasil.com.br/links) é a página para colocar na bio. WhatsApp, e-mail e Instagram vêm do programa (Cadastros › Empresa); o botão do Instagram só aparece quando o campo Instagram estiver preenchido lá.
 
 ## Catálogo
 1. Banco do programa (Supabase, função `catalogo_publico`): só produtos marcados "No site".
@@ -25,7 +25,7 @@ Site estático: abre direto no navegador, sem servidor. Nunca mostra preço.
 Guarda só códigos e quantidades no navegador. Nome, empresa e observações não ficam guardados. A mensagem abre no WhatsApp (5579998390222) para a pessoa enviar.
 
 ## Publicar
-Está no repositório público `verdanbrasil/verdanbrasil.github.io`; o GitHub Pages publica o `main` em https://verdanbrasil.github.io.
+Está no repositório público `verdanbrasil/verdanbrasil.github.io`; o GitHub Pages publica o `main` em https://verdanbrasil.com.br (arquivo `CNAME`; o endereço antigo verdanbrasil.github.io leva para ele).
 Endereços: /produtos, /produtos/<nome>, /a-verdan, /como-comprar, /contato, /solicitacao, /privacidade, /links. Links antigos com # continuam funcionando.
 A Action "Publicar site" (`.github/workflows/publicar.yml`) roda a cada 3 horas e gera, com `ferramentas/gerar-paginas.mjs`, uma página para cada produto (título, foto e descrição próprios para o Google e para a prévia do link no WhatsApp), o `sitemap.xml` e o `404.html`. Produto novo já abre no site antes disso, pelo `404.html`.
 

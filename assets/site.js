@@ -757,13 +757,23 @@ function comoComprarPage(){
     <div class="actions" style="margin-top:30px"><a class="btn green" href="/produtos">Explorar produtos</a><a class="btn outline-dark" href="/solicitacao">Ver minha solicitação</a></div>
   </div></div></section>${cta()}`;
 }
+// E-mails do Contato: o principal (programa ou config) e os por setor do config.js.
+function emailsSetores(){
+  const E = C.emails || {};
+  return [
+    ["Comercial", "Orçamentos, preços, prazos e negociação.", E.comercial],
+    ["Atendimento", "Dúvidas gerais: como comprar, horário, primeiros passos.", E.atendimento],
+    ["Suporte", "Trocas, garantias, peça com defeito ou incompatível.", E.suporte],
+    ["Contato", "Parcerias, apresentação da empresa e outros assuntos.", C.email],
+  ].filter(x => x[2] && /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(x[2]));
+}
 function contatoPage(){
   const tel = telefoneFormatado();
   return `${crumb("Contato")}${pageTitle("CONTATO", "Fale com a VERDAN", "Converse com nossa equipe sobre o produto e a aplicação que você procura.")}
   <section class="section"><div class="wrap"><div class="contact-grid">
     <div class="contact-card email-card">${icon("chat")}<h3>WhatsApp comercial</h3><p>Ajuda para escolher produtos e confirmar as condições da sua solicitação.${tel ? `<br><strong style="color:white;font-size:18px">${tel}</strong>` : ""}${C.horario ? `<br>${esc(C.horario)}` : ""}</p>${temWhatsApp ? `<a class="btn" href="${esc(linkWhatsApp(MENSAGEM_GERAL))}" target="_blank" rel="noopener">Conversar no WhatsApp<svg class="seta" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a>` : '<p>Contato indisponível no momento.</p>'}</div>
     <div class="contact-card">${icon("pin")}<h3>Onde estamos</h3><p>${C.endereco ? esc(C.endereco) : "Endereço em atualização."}${C.cnpj ? `<br>CNPJ ${esc(C.cnpj)}` : ""}</p>${C.endereco ? `<a class="text-link" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent("VERDAN " + C.endereco)}" target="_blank" rel="noopener">Abrir no mapa<svg class="seta" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a>` : ""}</div>
-    ${C.email ? `<div class="contact-card">${icon("mail")}<h3>E-mail</h3><p><a href="mailto:${esc(C.email)}" style="text-decoration:underline">${esc(C.email)}</a></p></div>` : ""}
+    ${emailsSetores().length ? `<div class="contact-card">${icon("mail")}<h3>E-mails</h3><ul class="lista-emails">${emailsSetores().map(([rotulo, uso, end]) => `<li><strong>${esc(rotulo)}</strong><span>${esc(uso)}</span><a href="mailto:${esc(end)}">${esc(end)}</a></li>`).join("")}</ul></div>` : ""}
     ${C.instagram ? `<div class="contact-card">${icon("insta")}<h3>Instagram</h3><p>Novidades e produtos no nosso perfil.</p><a class="text-link" href="${esc(C.instagram)}" target="_blank" rel="noopener">Abrir o Instagram<svg class="seta" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a></div>` : ""}
     <div class="contact-card">${icon("list")}<h3>Atalhos</h3><p>Dúvida sobre um produto? Abra a ficha e toque em “Tirar dúvida sobre este produto”.</p><div class="actions"><a class="btn green" href="/produtos">Explorar produtos</a><a class="btn outline-dark" href="/solicitacao">Sua solicitação</a></div></div>
   </div></div></section>`;
@@ -774,7 +784,7 @@ function privacidadePage(){
     <h2>O que fica no seu aparelho</h2><p>A lista da sua solicitação (códigos dos produtos e quantidades) fica guardada só no seu navegador, para você não perder a seleção. Nome, empresa e observações não são guardados.</p>
     <h2>O que vai para a VERDAN</h2><p>Quando você toca em “Continuar no WhatsApp”, a mensagem abre no seu WhatsApp. Ela só chega à VERDAN se você enviar. Nome, empresa e observações são opcionais e servem apenas para o atendimento desta solicitação.</p>
     <h2>Rastreamento</h2><p>Este site não usa ferramentas de análise, anúncios ou rastreadores.</p>
-    <h2>Dúvidas</h2><p>Fale com a nossa equipe pelo WhatsApp${telefoneFormatado() ? ` ${telefoneFormatado()}` : ""}.</p>
+    <h2>Dúvidas</h2><p>Fale com a nossa equipe pelo WhatsApp${telefoneFormatado() ? ` ${telefoneFormatado()}` : ""}${C.emails?.atendimento ? ` ou pelo e-mail <a href="mailto:${esc(C.emails.atendimento)}" style="text-decoration:underline">${esc(C.emails.atendimento)}</a>` : ""}.</p>
   </div></section>`;
 }
 function linksPage(){
