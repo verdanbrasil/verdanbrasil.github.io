@@ -371,7 +371,7 @@ function rotuloCodigos(p){
 function card(p){
   const v = p.variacoes[0];
   const acao = !p.disponivel
-    ? `<a class="btn consulta" href="${esc(linkWhatsApp(`Olá! Gostaria de saber a disponibilidade do produto ${p.nome} (cód. ${p.variacoes.map(x => x.codigo).join(", ")}).\n${urlDoProduto(p)}`))}" target="_blank" rel="noopener">Consultar disponibilidade ↗</a>`
+    ? `<a class="btn consulta" href="${esc(linkWhatsApp(`Olá! Gostaria de saber a disponibilidade do produto ${p.nome} (cód. ${p.variacoes.map(x => x.codigo).join(", ")}).\n${urlDoProduto(p)}`))}" target="_blank" rel="noopener">Consultar disponibilidade<svg class="seta" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a>`
     : p.variacoes.length > 1
       ? `<a class="btn green" href="/produtos/${esc(p.slug)}">Escolher opção ${icon("arrow")}</a>`
       : `<button class="btn green" type="button" data-adicionar="${esc(v.codigo)}">Adicionar à solicitação +</button>`;
@@ -409,7 +409,7 @@ function home(){
   const lista = destaques();
   const blocoCategorias = carregando
     ? `<div class="category-grid">${Array.from({ length: 3 }, () => `<div class="category" aria-hidden="true"><div style="width:100%"><div class="linha" style="height:14px;background:#e3e7df;width:50%;margin-bottom:8px"></div><div class="linha" style="height:10px;background:#e8ebe4;width:70%"></div></div></div>`).join("")}</div>`
-    : `<div class="category-grid reveal">${cats.map(c => `<a class="category" href="/produtos?categoria=${esc(c.slug)}">${icon(iconeCategoria(c.nome))}<div><h3>${esc(c.nome)}</h3><small>${c.total} ${c.total === 1 ? "produto" : "produtos"}</small></div><span class="arrow">↗</span></a>`).join("")}<a class="category" href="/produtos">${icon("tool")}<div><h3>Todos os acessórios</h3><small>Seu próximo passo está aqui</small></div><span class="arrow">↗</span></a></div>`;
+    : `<div class="category-grid reveal">${cats.map(c => `<a class="category" href="/produtos?categoria=${esc(c.slug)}">${icon(iconeCategoria(c.nome))}<div><h3>${esc(c.nome)}</h3><small>${c.total} ${c.total === 1 ? "produto" : "produtos"}</small></div><span class="arrow"><svg class="seta" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></span></a>`).join("")}<a class="category" href="/produtos">${icon("tool")}<div><h3>Todos os acessórios</h3><small>Seu próximo passo está aqui</small></div><span class="arrow"><svg class="seta" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></span></a></div>`;
   const blocoDestaques = carregando
     ? `<div class="grid">${cardsCarregando(4)}</div>`
     : `<div class="grid reveal">${lista.map(card).join("")}</div>`;
@@ -421,7 +421,7 @@ function home(){
       <span class="eyebrow">ACESSÓRIOS PARA LINHA PESADA</span>
       <h1>Acessórios de <br>qualidade para <br>quem <em>move o Brasil.</em></h1>
       <p>Encontre acessórios para o trabalho na estrada e conte com nossa equipe para orientar sua escolha.</p>
-      <div class="actions"><a class="btn primary" href="/produtos">Explorar produtos ${icon("arrow")}</a><a class="btn outline" href="${esc(linkWhatsApp(MENSAGEM_GERAL))}" target="_blank" rel="noopener">Falar com a VERDAN ↗</a></div>
+      <div class="actions"><a class="btn primary" href="/produtos">Explorar produtos ${icon("arrow")}</a><a class="btn outline" href="${esc(linkWhatsApp(MENSAGEM_GERAL))}" target="_blank" rel="noopener">Falar com a VERDAN<svg class="seta" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a></div>
     </div></div>
     <span class="scroll-cue" aria-hidden="true">CONTINUE A JORNADA</span>
     <nav class="chapter-nav" aria-label="Capítulos da página">
@@ -437,7 +437,7 @@ function home(){
     ${blocoCategorias}
   </div></section>
   ${!carregando && !lista.length ? "" : `<section class="section chapter-anchor" id="detalhes"><div class="wrap">
-    <div class="section-head reveal"><div><span class="eyebrow">02 / ENCONTRE SUA ESCOLHA</span><h2>O detalhe certo.<br>Um caminho mais claro.</h2><p class="muted">Explore os acessórios e leve sua seleção ao atendimento.</p></div><a class="text-link" href="/produtos">Ver catálogo completo ↗</a></div>
+    <div class="section-head reveal"><div><span class="eyebrow">02 / ENCONTRE SUA ESCOLHA</span><h2>O detalhe certo.<br>Um caminho mais claro.</h2><p class="muted">Explore os acessórios e leve sua seleção ao atendimento.</p></div><a class="text-link" href="/produtos">Ver catálogo completo<svg class="seta" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a></div>
     ${blocoDestaques}
   </div></section>`}
   <section class="section story-bridge"><div class="wrap">
@@ -452,10 +452,10 @@ function home(){
   </div></section>
   <section class="section brand-story chapter-anchor" id="parceria"><div class="wrap manifest">
     <div class="editorial-scene reveal">${picEstrada("Cena conceitual de caminhão com a identidade VERDAN", 'loading="lazy" width="600" height="500"')}<div class="scene-caption"><strong>Uma marca que<br>acompanha a jornada.</strong>VERDAN / ACESSÓRIOS PARA LINHA PESADA</div></div>
-    <div class="reveal"><span class="eyebrow">03 / MAIS PERTO DE VOCÊ</span><h2>Presença na marca.<br>Proximidade<br>na conversa.</h2><p class="muted">Nosso trabalho é facilitar a escolha de acessórios para linha pesada com informação clara e atendimento próximo.</p><a class="text-link" href="/a-verdan">Conheça a VERDAN ↗</a><div class="brand-values"><span>FUNCIONAL.</span><span>CONFIÁVEL.</span><span>FORTE.</span></div></div>
+    <div class="reveal"><span class="eyebrow">03 / MAIS PERTO DE VOCÊ</span><h2>Presença na marca.<br>Proximidade<br>na conversa.</h2><p class="muted">Nosso trabalho é facilitar a escolha de acessórios para linha pesada com informação clara e atendimento próximo.</p><a class="text-link" href="/a-verdan">Conheça a VERDAN<svg class="seta" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a><div class="brand-values"><span>FUNCIONAL.</span><span>CONFIÁVEL.</span><span>FORTE.</span></div></div>
   </div></section>
   <section class="section process"><div class="wrap">
-    <div class="section-head reveal"><div><span class="eyebrow">SEM COMPLICAÇÃO, PASSO A PASSO</span><h2>Do catálogo ao atendimento,<br>com clareza.</h2></div><a href="/como-comprar" class="text-link">Entenda como comprar ↗</a></div>
+    <div class="section-head reveal"><div><span class="eyebrow">SEM COMPLICAÇÃO, PASSO A PASSO</span><h2>Do catálogo ao atendimento,<br>com clareza.</h2></div><a href="/como-comprar" class="text-link">Entenda como comprar<svg class="seta" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a></div>
     <div class="steps reveal">
       <div class="step"><span>01 / EXPLORE</span><h3>Escolha os produtos</h3><p>Conheça as opções e consulte as informações de cada acessório.</p></div>
       <div class="step"><span>02 / ORGANIZE</span><h3>Informe as quantidades</h3><p>Adicione os itens à solicitação, sem precisar criar conta.</p></div>
@@ -554,7 +554,7 @@ function atualizarResultados(){
   $("#resultCount").textContent = `${lista.length} ${lista.length === 1 ? "produto encontrado" : "produtos encontrados"}${estadoBusca.q ? ` para “${estadoBusca.q}”` : ""}`;
   res.innerHTML = lista.length
     ? lista.slice(inicio, inicio + POR_PAGINA).map(card).join("")
-    : `<div class="empty"><h3>Nenhum produto encontrado${estadoBusca.q ? ` para “${esc(estadoBusca.q)}”` : ""}.</h3><p class="muted">Tente outro termo ou limpe os filtros. Se preferir, conte para nossa equipe o que você procura.</p><div class="actions" style="justify-content:center"><button class="btn green" type="button" data-limpar-tudo>Limpar busca e filtros</button><a class="btn outline-dark" href="${esc(linkWhatsApp(`Olá! Procurei${estadoBusca.q ? ` “${estadoBusca.q}”` : ""} no site da VERDAN e não encontrei. Podem me ajudar?`))}" target="_blank" rel="noopener">Pedir ajuda ao comercial ↗</a></div></div>`;
+    : `<div class="empty"><h3>Nenhum produto encontrado${estadoBusca.q ? ` para “${esc(estadoBusca.q)}”` : ""}.</h3><p class="muted">Tente outro termo ou limpe os filtros. Se preferir, conte para nossa equipe o que você procura.</p><div class="actions" style="justify-content:center"><button class="btn green" type="button" data-limpar-tudo>Limpar busca e filtros</button><a class="btn outline-dark" href="${esc(linkWhatsApp(`Olá! Procurei${estadoBusca.q ? ` “${estadoBusca.q}”` : ""} no site da VERDAN e não encontrei. Podem me ajudar?`))}" target="_blank" rel="noopener">Pedir ajuda ao comercial<svg class="seta" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a></div></div>`;
   const chips = $("#chips");
   chips.innerHTML = [
     ...catalogo.categorias.filter(c => estadoBusca.cats.includes(c.slug)).map(c => `<span class="chip">${esc(c.nome)}<button type="button" aria-label="Remover filtro ${esc(c.nome)}" data-tirar-cat="${esc(c.slug)}">×</button></span>`),
@@ -603,7 +603,7 @@ function productPage(slug){
       <strong id="disponibilidade"></strong>
       <p>Condições, disponibilidade e unidade de venda são confirmadas pela equipe.</p>
       <div id="acaoProduto"></div>
-      <a class="btn outline-dark" id="duvidaProduto" target="_blank" rel="noopener" href="#">Tirar dúvida sobre este produto ↗</a>
+      <a class="btn outline-dark" id="duvidaProduto" target="_blank" rel="noopener" href="#">Tirar dúvida sobre este produto<svg class="seta" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a>
       <p style="font-size:12px;margin-top:18px">A inclusão organiza sua seleção. A compra depende de confirmação com o comercial.</p>
     </div>
   </section>
@@ -613,7 +613,7 @@ function productPage(slug){
       <h3>Dúvidas sobre este produto</h3><p class="muted">Envie o modelo do veículo ou a aplicação e a equipe orienta sua escolha.</p></div>
     <div><h3>Especificações</h3><table class="spec-table"><tbody>${linhasEspec.map(([r, v]) => `<tr><td>${esc(r)}</td><td>${esc(v)}</td></tr>`).join("")}</tbody></table></div>
   </div></section>
-  ${relacionados.length ? `<section class="section paper" style="padding:35px 0"><div class="section-head"><h2>Continue explorando.</h2><a class="text-link" href="/produtos?categoria=${esc(slugify(p.categoria))}">Mais em ${esc(p.categoria)} ↗</a></div><div class="grid">${relacionados.map(card).join("")}</div></section>` : ""}
+  ${relacionados.length ? `<section class="section paper" style="padding:35px 0"><div class="section-head"><h2>Continue explorando.</h2><a class="text-link" href="/produtos?categoria=${esc(slugify(p.categoria))}">Mais em ${esc(p.categoria)}<svg class="seta" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a></div><div class="grid">${relacionados.map(card).join("")}</div></section>` : ""}
   </div><div style="height:50px"></div>${cta()}`;
 }
 function fotosDaFicha(){
@@ -634,7 +634,7 @@ function atualizarFicha(){
   $("#duvidaProduto").href = linkWhatsApp(textoDuvida);
   $("#acaoProduto").innerHTML = v.disponivel
     ? `<label for="qty" class="code">QUANTIDADE</label><div class="order-action"><div class="quantity"><button type="button" aria-label="Diminuir quantidade" data-qtd="-1">−</button><input id="qty" aria-label="Quantidade" type="number" inputmode="numeric" value="1" min="1" max="999" step="1"><button type="button" aria-label="Aumentar quantidade" data-qtd="1">+</button></div><button class="btn primary" type="button" data-adicionar-ficha>Adicionar à solicitação +</button></div>`
-    : `<div class="order-action"><a class="btn primary" href="${esc(linkWhatsApp(`Olá! Gostaria de saber a disponibilidade do produto ${p.nome}${v.rotulo ? ` (${v.rotulo})` : ""}, cód. ${v.codigo}.\n${urlDoProduto(p)}`))}" target="_blank" rel="noopener">Consultar disponibilidade ↗</a></div>`;
+    : `<div class="order-action"><a class="btn primary" href="${esc(linkWhatsApp(`Olá! Gostaria de saber a disponibilidade do produto ${p.nome}${v.rotulo ? ` (${v.rotulo})` : ""}, cód. ${v.codigo}.\n${urlDoProduto(p)}`))}" target="_blank" rel="noopener">Consultar disponibilidade<svg class="seta" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a></div>`;
 }
 function abrirLightbox(){
   const fotos = fotosDaFicha();
@@ -761,10 +761,10 @@ function contatoPage(){
   const tel = telefoneFormatado();
   return `${crumb("Contato")}${pageTitle("CONTATO", "Fale com a VERDAN", "Converse com nossa equipe sobre o produto e a aplicação que você procura.")}
   <section class="section"><div class="wrap"><div class="contact-grid">
-    <div class="contact-card email-card">${icon("chat")}<h3>WhatsApp comercial</h3><p>Ajuda para escolher produtos e confirmar as condições da sua solicitação.${tel ? `<br><strong style="color:white;font-size:18px">${tel}</strong>` : ""}${C.horario ? `<br>${esc(C.horario)}` : ""}</p>${temWhatsApp ? `<a class="btn" href="${esc(linkWhatsApp(MENSAGEM_GERAL))}" target="_blank" rel="noopener">Conversar no WhatsApp ↗</a>` : '<p>Contato indisponível no momento.</p>'}</div>
-    <div class="contact-card">${icon("pin")}<h3>Onde estamos</h3><p>${C.endereco ? esc(C.endereco) : "Endereço em atualização."}${C.cnpj ? `<br>CNPJ ${esc(C.cnpj)}` : ""}</p>${C.endereco ? `<a class="text-link" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent("VERDAN " + C.endereco)}" target="_blank" rel="noopener">Abrir no mapa ↗</a>` : ""}</div>
+    <div class="contact-card email-card">${icon("chat")}<h3>WhatsApp comercial</h3><p>Ajuda para escolher produtos e confirmar as condições da sua solicitação.${tel ? `<br><strong style="color:white;font-size:18px">${tel}</strong>` : ""}${C.horario ? `<br>${esc(C.horario)}` : ""}</p>${temWhatsApp ? `<a class="btn" href="${esc(linkWhatsApp(MENSAGEM_GERAL))}" target="_blank" rel="noopener">Conversar no WhatsApp<svg class="seta" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a>` : '<p>Contato indisponível no momento.</p>'}</div>
+    <div class="contact-card">${icon("pin")}<h3>Onde estamos</h3><p>${C.endereco ? esc(C.endereco) : "Endereço em atualização."}${C.cnpj ? `<br>CNPJ ${esc(C.cnpj)}` : ""}</p>${C.endereco ? `<a class="text-link" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent("VERDAN " + C.endereco)}" target="_blank" rel="noopener">Abrir no mapa<svg class="seta" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a>` : ""}</div>
     ${C.email ? `<div class="contact-card">${icon("mail")}<h3>E-mail</h3><p><a href="mailto:${esc(C.email)}" style="text-decoration:underline">${esc(C.email)}</a></p></div>` : ""}
-    ${C.instagram ? `<div class="contact-card">${icon("insta")}<h3>Instagram</h3><p>Novidades e produtos no nosso perfil.</p><a class="text-link" href="${esc(C.instagram)}" target="_blank" rel="noopener">Abrir o Instagram ↗</a></div>` : ""}
+    ${C.instagram ? `<div class="contact-card">${icon("insta")}<h3>Instagram</h3><p>Novidades e produtos no nosso perfil.</p><a class="text-link" href="${esc(C.instagram)}" target="_blank" rel="noopener">Abrir o Instagram<svg class="seta" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a></div>` : ""}
     <div class="contact-card">${icon("list")}<h3>Atalhos</h3><p>Dúvida sobre um produto? Abra a ficha e toque em “Tirar dúvida sobre este produto”.</p><div class="actions"><a class="btn green" href="/produtos">Explorar produtos</a><a class="btn outline-dark" href="/solicitacao">Sua solicitação</a></div></div>
   </div></div></section>`;
 }
@@ -828,6 +828,7 @@ function converterEnderecoAntigo(){
   history.replaceState(null, "", novo + m[2]);
   return true;
 }
+const CAMINHO_INICIAL = location.pathname; // endereço em que esta página foi carregada (antes de converter links antigos com #)
 function render(rolar = true){
   const { rota, params, chave: endereco } = rotaAtual();
   const main = $("#main");
@@ -840,7 +841,7 @@ function render(rolar = true){
   else if(rota === "como-comprar") html = comoComprarPage();
   else if(rota === "contato") html = contatoPage();
   else if(rota === "privacidade") html = privacidadePage();
-  else if(rota === "links") html = linksPage();
+  else if(rota === "links" && !/^\/links(\.html)?$/.test(CAMINHO_INICIAL)){ location.replace("/links"); return; } // a bio do Instagram é uma página própria (links.html)
   else { html = notfound(); chave = "404"; }
   // Re-render do mesmo lugar (catálogo chegou): mantém a rolagem e o que foi digitado.
   const yAntes = scrollY;
@@ -914,7 +915,7 @@ document.addEventListener("click", ev => {
   if(t.matches(".skip")){ ev.preventDefault(); $("#main").focus(); return; }
   // Link interno: troca a página sem recarregar. Link novo (não é "voltar") começa no topo.
   const href = t.tagName === "A" ? t.getAttribute("href") || "" : "";
-  if(href.startsWith("/") && !href.startsWith("//") && !t.target && !t.hasAttribute("download") && !ev.ctrlKey && !ev.metaKey && !ev.shiftKey && !ev.altKey && ev.button === 0){
+  if(href.startsWith("/") && !href.startsWith("//") && !/^\/links(\.html)?([?#]|$)/.test(href) && !t.target && !t.hasAttribute("download") && !ev.ctrlKey && !ev.metaKey && !ev.shiftKey && !ev.altKey && ev.button === 0){
     ev.preventDefault();
     delete posicoes[href];
     if(t.dataset.busca !== undefined && rotaAtual().rota === "produtos"){ $("#catalogSearch")?.focus(); return; }

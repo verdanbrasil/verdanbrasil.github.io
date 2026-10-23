@@ -106,13 +106,12 @@ const FIXAS = [
   { arq: "contato.html", caminho: "/contato", titulo: "Contato | VERDAN", descricao: "Fale com a VERDAN pelo WhatsApp." },
   { arq: "privacidade.html", caminho: "/privacidade", titulo: "Privacidade | VERDAN", descricao: "Como o site da VERDAN trata seus dados." },
   { arq: "solicitacao.html", caminho: "/solicitacao", titulo: "Sua solicitação | VERDAN", descricao: "Revise os produtos e continue o atendimento pelo WhatsApp.", indexar: false },
-  { arq: "links.html", caminho: "/links", titulo: "Links | VERDAN", descricao: "Canais oficiais da VERDAN.", indexar: false },
 ];
 
 (async () => {
   if(!NO_LUGAR){
     fs.rmSync(SAIDA, { recursive: true, force: true });
-    for(const item of ["assets", "favicon.ico", "index.html"]) fs.cpSync(path.join(RAIZ, item), path.join(SAIDA, item), { recursive: true });
+    for(const item of ["assets", "favicon.ico", "index.html", "links.html"]) fs.cpSync(path.join(RAIZ, item), path.join(SAIDA, item), { recursive: true });
   }
 
   let linhas = [], falhas = 0;

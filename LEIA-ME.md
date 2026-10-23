@@ -13,6 +13,9 @@ Site estático: abre direto no navegador, sem servidor. Nunca mostra preço.
 ## Páginas
 `#inicio`, `#produtos` (busca, categorias, ordem e página ficam no link), `#produto/<nome>`, `#solicitacao`, `#empresa`, `#como-comprar`, `#contato`, `#privacidade`, `#links` (para a bio do Instagram). Qualquer outro endereço mostra "Página não encontrada".
 
+## Bio do Instagram
+`links.html` (endereço https://verdanbrasil.github.io/links) é a página para colocar na bio. WhatsApp, e-mail e Instagram vêm do programa (Cadastros › Empresa); o botão do Instagram só aparece quando o campo Instagram estiver preenchido lá.
+
 ## Catálogo
 1. Banco do programa (Supabase, função `catalogo_publico`): só produtos marcados "No site".
 2. Enquanto o banco não tiver produtos marcados, usa a planilha do site de pedidos.
@@ -30,4 +33,4 @@ A Action "Publicar site" (`.github/workflows/publicar.yml`) roda a cada 3 horas 
 WhatsApp, e-mail, cidade/UF e CNPJ vêm do programa (Cadastros › Empresa), pela função `empresa_publica()` do banco (arquivo `verdan-site/supabase/empresa-publica.sql`, junto no `site-completo.sql`). Horário, Instagram, destaques e "mostrar endereço completo" também vêm de lá quando o programa ganhar esses campos. O `config.js` só vale para o que estiver vazio no programa.
 
 ## Testes
-`cd testes && NODE_PATH=$(npm root -g) node teste.js` (111 verificações, prints em `testes/prints/`). Usa catálogo e fotos falsos; nada é enviado de verdade.
+`cd testes && NODE_PATH=$(npm root -g) node teste.js` (134 verificações, prints em `testes/prints/`). Usa catálogo e fotos falsos; nada é enviado de verdade.

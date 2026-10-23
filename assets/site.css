@@ -99,3 +99,5 @@ body.sem-zap .zap{display:none}
 .crumb [aria-current]{padding:7px 10px;color:var(--ink);font-weight:700}
 .crumb li:first-child a{padding-left:0}
 @media(max-width:767px){.crumb ol{font-size:12px}.crumb a,.crumb [aria-current]{padding:8px 7px}}
+@media(max-width:767px){.hero-cinema .hero-scene img{height:auto;aspect-ratio:1672/941;object-fit:cover;-webkit-mask-image:linear-gradient(to bottom,transparent 0,rgba(0,0,0,.55) 12%,#000 30%);mask-image:linear-gradient(to bottom,transparent 0,rgba(0,0,0,.55) 12%,#000 30%)}}
+.seta{width:.95em;height:.95em;display:inline-block;vertical-align:-.12em;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;margin-left:.2em;flex-shrink:0}.arrow .seta,.plus .seta{margin-left:0;width:1em;height:1em}
