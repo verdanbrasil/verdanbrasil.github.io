@@ -172,7 +172,10 @@ let catalogo = { estado: "carregando", produtos: [], porCodigo: new Map(), categ
 // Rótulo da variação: tipos livres do programa (ex. Cor, Lado) ou Cor/Tamanho/Voltagem.
 // O banco não guarda a ordem dos tipos: Cor, Tamanho e Voltagem primeiro, depois os outros em ordem alfabética.
 function rotuloVariacao(l){
-  const livre = l.variacao && typeof l.variacao === "object" && !Array.isArray(l.variacao) ? l.variacao : null;
+  let livre = l.variacao && typeof l.variacao === "object" && !Array.isArray(l.variacao) ? l.variacao : null;
+  if(typeof l.variacao_texto === "string"){
+    try{ const x = JSON.parse(l.variacao_texto); if(x && typeof x === "object" && !Array.isArray(x) && Object.keys(x).length) return Object.values(x).map(v => String(v ?? "").trim()).filter(Boolean).join(" · "); }catch(e){}
+  }
   if(livre && Object.keys(livre).length){
     const fixos = ["Cor", "Tamanho", "Voltagem"];
     const peso = k => { const i = fixos.indexOf(k); return i < 0 ? 99 : i; };
@@ -235,7 +238,7 @@ async function buscarDoBanco(){
     });
     if(!r.ok) return [];
     const itens = await r.json();
-    return Array.isArray(itens) ? itens.map(i => ({ codigo: i.codigo, nome: i.nome, categoria: i.categoria, descricao: i.descricao, grupo: i.grupo, cor: i.cor, tamanho: i.tamanho, voltagem: i.voltagem, pai: i.pai, nome_base: i.nome_base, variacao: i.variacao, fotos: i.fotos, disponivel: !!i.disponivel })) : [];
+    return Array.isArray(itens) ? itens.map(i => ({ codigo: i.codigo, nome: i.nome, categoria: i.categoria, descricao: i.descricao, grupo: i.grupo, cor: i.cor, tamanho: i.tamanho, voltagem: i.voltagem, pai: i.pai, nome_base: i.nome_base, variacao: i.variacao, variacao_texto: i.variacao_texto, fotos: i.fotos, disponivel: !!i.disponivel })) : [];
   }catch(e){ return []; }
   finally{ clearTimeout(t); }
 }
