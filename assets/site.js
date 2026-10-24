@@ -169,24 +169,36 @@ function imgProduto(url, alt, extra = ""){
 // Cada variação tem o código do programa, que é o que vai para a solicitação.
 let catalogo = { estado: "carregando", produtos: [], porCodigo: new Map(), categorias: [] };
 
+// Rótulo da variação: tipos livres do programa (ex. Cor, Lado) ou Cor/Tamanho/Voltagem.
+// O banco não guarda a ordem dos tipos: Cor, Tamanho e Voltagem primeiro, depois os outros em ordem alfabética.
+function rotuloVariacao(l){
+  const livre = l.variacao && typeof l.variacao === "object" && !Array.isArray(l.variacao) ? l.variacao : null;
+  if(livre && Object.keys(livre).length){
+    const fixos = ["Cor", "Tamanho", "Voltagem"];
+    const peso = k => { const i = fixos.indexOf(k); return i < 0 ? 99 : i; };
+    return Object.keys(livre).sort((a, b) => peso(a) - peso(b) || a.localeCompare(b, "pt-BR"))
+      .map(k => String(livre[k] ?? "").trim()).filter(Boolean).join(" · ");
+  }
+  return [l.cor, l.tamanho, l.voltagem].map(v => String(v || "").trim()).filter(Boolean).join(" · ");
+}
 function montarProdutos(linhas){
   const grupos = new Map();
   linhas.forEach(l => {
     if(!l.nome || l.codigo === undefined || l.codigo === null || l.codigo === "") return;
-    const chave = norm(l.grupo) || `#${l.codigo}`;
+    const chave = Number(l.pai) ? `pai:${Number(l.pai)}` : (norm(l.grupo || l.nome_base) || `#${l.codigo}`); // variações do mesmo produto: mesmo Pai (ou Grupo)
     if(!grupos.has(chave)) grupos.set(chave, []);
     grupos.get(chave).push(l);
   });
   const slugs = new Set();
   const produtos = [...grupos.values()].map(lista => {
     lista.sort((a, b) => String(a.codigo).localeCompare(String(b.codigo), "pt-BR", { numeric: true }));
-    const nome = (lista[0].grupo || "").trim() || lista[0].nome;
+    const nome = (lista[0].grupo || "").trim() || (lista.length > 1 && (lista[0].nome_base || "").trim()) || lista[0].nome;
     let slug = slugify(nome);
     if(slugs.has(slug)) slug += "-" + slugify(lista[0].codigo);
     slugs.add(slug);
     const variacoes = lista.map(l => {
       const fotos = String(l.fotos || "").split(",").map(f => resolverImagem(f)).filter(Boolean);
-      const rotulo = [l.cor, l.tamanho, l.voltagem].map(v => String(v || "").trim()).filter(Boolean).join(" · ");
+      const rotulo = rotuloVariacao(l);
       return { codigo: String(l.codigo), nome: l.nome, rotulo, cor: l.cor || "", tamanho: l.tamanho || "", voltagem: l.voltagem || "", fotos, disponivel: l.disponivel !== false };
     });
     const produto = {
@@ -223,7 +235,7 @@ async function buscarDoBanco(){
     });
     if(!r.ok) return [];
     const itens = await r.json();
-    return Array.isArray(itens) ? itens.map(i => ({ codigo: i.codigo, nome: i.nome, categoria: i.categoria, descricao: i.descricao, grupo: i.grupo, cor: i.cor, tamanho: i.tamanho, voltagem: i.voltagem, fotos: i.fotos, disponivel: !!i.disponivel })) : [];
+    return Array.isArray(itens) ? itens.map(i => ({ codigo: i.codigo, nome: i.nome, categoria: i.categoria, descricao: i.descricao, grupo: i.grupo, cor: i.cor, tamanho: i.tamanho, voltagem: i.voltagem, pai: i.pai, nome_base: i.nome_base, variacao: i.variacao, fotos: i.fotos, disponivel: !!i.disponivel })) : [];
   }catch(e){ return []; }
   finally{ clearTimeout(t); }
 }

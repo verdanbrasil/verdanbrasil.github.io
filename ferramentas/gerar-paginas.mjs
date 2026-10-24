@@ -61,14 +61,14 @@ function montarProdutos(linhas){
   const grupos = new Map();
   linhas.forEach(l => {
     if(!l.nome || l.codigo === undefined || l.codigo === null || l.codigo === "") return;
-    const chave = norm(l.grupo) || `#${l.codigo}`;
+    const chave = Number(l.pai) ? `pai:${Number(l.pai)}` : (norm(l.grupo || l.nome_base) || `#${l.codigo}`); // variações do mesmo produto: mesmo Pai (ou Grupo)
     if(!grupos.has(chave)) grupos.set(chave, []);
     grupos.get(chave).push(l);
   });
   const slugs = new Set();
   return [...grupos.values()].map(lista => {
     lista.sort((a, b) => String(a.codigo).localeCompare(String(b.codigo), "pt-BR", { numeric: true }));
-    const nome = (lista[0].grupo || "").trim() || lista[0].nome;
+    const nome = (lista[0].grupo || "").trim() || (lista.length > 1 && (lista[0].nome_base || "").trim()) || lista[0].nome;
     let slug = slugify(nome);
     if(slugs.has(slug)) slug += "-" + slugify(lista[0].codigo);
     slugs.add(slug);
